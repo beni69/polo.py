@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- <div class="grid"> -->
+<!--     {% for order in orders %} -->
+<!--         <div> -->
+<!--             {{ order }} -->
+<!--         </div> -->
+<!--     {% empty %} -->
+<!--         Még nem rendeltél semmit. -->
+<!--     {% endfor %} -->
+<!-- </div> -->
+
+<div>
+    {% for order in orders %}
+        <section>
+            <a href="/order/?id={{ order.id }}">{{ order }}</a>
+        </section>
+    {% empty %}
+        Még nem rendeltél semmit.
+    {% endfor %}
+</div>
+
+<!-- <ul> -->
+<!--     {% for order in orders %} -->
+<!--         <li> -->
+<!--             {{ order }} -->
+<!--         </li> -->
+<!--     {% empty %} -->
+<!--         Még nem rendeltél semmit. -->
+<!--     {% endfor %} -->
+<!-- </ul> -->
+
+{% endblock %}

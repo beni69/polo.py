@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="dark">
+    <head>
+        {% if title %}
+        <title>{{ title }} - Pólórendelés</title>
+        {% else %}
+        <title>Pólórendelés</title>
+        {% endif %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1.5.10/css/pico.min.css" integrity="sha256-AmkBgnWRWgRJIBCpCCmwuc/mbOWTWKepkFXimo1nQqk=" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="container-fluid">
+            <ul>
+                <li><a href="/" class="contrast"><strong>Pólórendelés</strong></a></li>
+            </ul>
+            <ul>
+                {% if user.is_staff %}
+                <li><a href="/admin/">Admin</a></li>
+                {% endif %}
+                <li><a href="/orders/">Rendelések</a></li>
+                <li><a href="/order/">Új Rendelés</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="/accounts/profile/" role="button">Fiók</a></li>
+                {% else %}
+                <li><a href="/accounts/login/" role="button">Bejelentkezés</a></li>
+                {% endif %}
+            </ul>
+        </nav> 
+
+        <main class="container">{% block content %}{% endblock %}</main>
+    </body>
+</html>

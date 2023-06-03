@@ -16,11 +16,14 @@ class Size(models.Model):
         return self.name
 
 class Product(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     sizes = models.ManyToManyField(Size)
     colors = models.ManyToManyField(Color)
     link = models.URLField()
     image = models.URLField()
+
+    def __str__(self):
+        return self.name
 
 class Class(models.Model):
     TYPES = [
@@ -72,7 +75,18 @@ class Class(models.Model):
 
 class PoloUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    osztaly = models.ForeignKey(Class, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.osztaly.type}"
 
 class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(PoloUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.DO_NOTHING)
+    color = models.ForeignKey(Color, on_delete=models.DO_NOTHING)
+    amount = models.IntegerField()
+
+    def __str__(self):
+        s = [f"{self.amount}db", self.size, self.color.name, self.product]
+        return " ".join(str(x) for x in s if x)

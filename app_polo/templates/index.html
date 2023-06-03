@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Üdv a Kőbányai Szent László Gimnázium pólórendelések oldalán</h3>
+
+<p>
+{% if user.is_authenticated %}
+<a href ="/orders/">Nézd meg a rendeléseidet</a>
+vagy
+<a href="/order/">rendelj valamit</a>!
+{% else %}
+Először <a href="/accounts/login">jelentkezz be</a>!
+{% endif %}
+</p>
+
+{% endblock %}

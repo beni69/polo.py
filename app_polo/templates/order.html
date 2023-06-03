@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="/order/" method="post">
+    {% csrf_token %}
+    {% if id %}
+    <input id="id_id" type="hidden" name="id" value="{{ id }}">
+    {% endif %}
+    {{ form }}
+    <div class="grid">
+        <input type="submit" value="Küldés">
+        {% if id %}
+            <input class="secondary" type="submit" value="Rendelés törlése" name="delete">
+        {% endif %}
+    </div>
+</form>
+
+<script defer>
+const inp = document.getElementById("id_product"),
+    u = new URL(window.location.href);
+console.debug(inp);
+
+if (u.searchParams.has("product"))
+    inp.value = u.searchParams.get("product");
+
+if (u.searchParams.has("id")) {
+    inp.disabled = true;
+    document.querySelector("form").onsubmit = _ => void (inp.disabled = false);
+}
+
+inp.onchange = e => {
+    u.searchParams.set("product", e.target.value)
+    window.location = u;
+}
+</script>
+
+{% endblock %}
